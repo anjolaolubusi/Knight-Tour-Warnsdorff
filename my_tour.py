@@ -61,6 +61,7 @@ class Warnsdorff:
             else:
                 self.grid.PrintGrid()
         else:
+            self.count = self.count + 1
             self.grid.core_grid[self.knight_x][self.knight_y].SetState(str(self.count))
             self.grid.PrintGrid()
 
