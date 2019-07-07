@@ -5,7 +5,7 @@ PyTour is a little program that calculates the knight tour for a specified chess
 
 These instructions will get you a copy of the project up and running.
 
-### Installing
+### Installing and Running
 
 First we need to clone the repository. First type:
 ```
