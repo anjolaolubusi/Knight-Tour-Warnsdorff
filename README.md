@@ -29,8 +29,8 @@ Once finished, you can run the project by typing:
 python main.py
 ```
 ## Built with
-* [Python]()
-* [Numpy]()
+* [Python](https://www.python.org/)
+* [Numpy](https://github.com/numpy/numpy)
 
 ## Authors
 * **Anjolaoluwa Olubusi** - *Initial work* - [anjolaolubusi](https://github.com/anjolaolubusi/PyTour)
