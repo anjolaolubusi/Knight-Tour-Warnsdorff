@@ -8,9 +8,10 @@ def GetXY():
     global real_x
     global real_y
 
-    real_x=int(input("Input x: "))
-    real_y=int(input("Input y: "))
+    real_x=int(input("Input Width of Chessboard: "))
+    real_y=int(input("Input Height of Chessboard: "))
 
 GetXY()
 my_grid = Warnsdorff(real_x, real_y)
+my_grid.AskForKnightPosition()
 my_grid.KnightTour()

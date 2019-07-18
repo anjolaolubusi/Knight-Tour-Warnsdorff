@@ -14,6 +14,10 @@ class Warnsdorff:
         self.knight_y = 0 #The y positon of the Knight
         self.count = 0 #This number will show which step the knight is
 
+    def AskForKnightPosition(self):
+        self.knight_x = int(input("Input X Position For The Knight: "))
+        self.knight_y = int(input("Input Y Position For The Knight: "))
+
     def FindAllKinghtTourNeighbours(self): #This method will calculate all the Knight Tour neighbours
         for i in range(self.grid_width):
             for j in range(self.grid_height):
