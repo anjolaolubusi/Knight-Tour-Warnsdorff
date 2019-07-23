@@ -15,8 +15,15 @@ class Warnsdorff:
         self.count = 0 #This number will show which step the knight is
 
     def AskForKnightPosition(self):
-        self.knight_x = int(input("Input X Position For The Knight: "))
-        self.knight_y = int(input("Input Y Position For The Knight: "))
+        self.knight_x = int(input("Input the X position: "))
+        self.knight_y = int(input("Input the Y position: "))
+        if(self.knight_x < 0 or self.knight_y < 0):
+            print("One of your positions is negative")
+            self.AskForKnightPosition()
+
+        if(self.knight_x > self.grid_width or self.knight_y > self.grid_height):
+            print("One of your positions is too large")
+            self.AskForKnightPosition()
 
     def FindAllKinghtTourNeighbours(self): #This method will calculate all the Knight Tour neighbours
         for i in range(self.grid_width):
@@ -71,7 +78,7 @@ class Warnsdorff:
 
     def SetKnight(self, kx, ky): #Sets the knight's position
         self.knight_x = kx
-        self.knight_y = ky
+        self .knight_y = ky
 
     def MinimumIndex(self, the_length_list): #Finds the minimum index of an array. Has a method for when all elements of the array have the same value
         if(len(the_length_list) > 0):
