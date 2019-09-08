@@ -37,4 +37,4 @@ python main.py
 
 ## Acknowledgments
 * Warnsdorff for his Warnsdorff's algorithm.
-* Arnd Roth for his proposition his improvements to the Warnsdorff's algorithm
+* Arnd Roth for his improvements to the Warnsdorff's algorithm
