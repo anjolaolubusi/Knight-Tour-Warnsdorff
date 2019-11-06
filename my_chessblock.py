@@ -26,5 +26,5 @@ class ChessBlock:
     def AddChessBlockToKnightTourNeighboursList(self, block): #Adds a chessblock object to the KnightTourNeighbours list
         self.KnightTourNeighbours.append(block)
 
-    def ClearKnightTourNeighboursList(self): # Empties the KnightTourNeighbours list
-        self.KnightTourNeighbours = []
+    def GKTN(self): #Returns the KnightTourNeighbours list 
+        return self.KnightTourNeighbours

@@ -13,6 +13,7 @@ class Warnsdorff:
         self.knight_x = 0 #The x positon of the Knight
         self.knight_y = 0 #The y positon of the Knight
         self.count = 0 #This number will show which step the knight is
+        self.FindAllKinghtTourNeighbours() #Finds all the neighbours for each chessblock on the board
 
     def AskForKnightPosition(self):
         self.knight_x = int(input("Input the X position: "))
@@ -36,14 +37,14 @@ class Warnsdorff:
                             self.grid.core_grid[i][j].AddChessBlockToKnightTourNeighboursList(self.grid.core_grid[temp_i][temp_j])
                         del dump_point1, dump_point2
 
-    def ClearAllKinghtTourNeighbours(self): #Clears the KnightTourNeighbours list
+    def UpdateKinghtTourNeighbourList(self): #Clears the KnightTourNeighbours list
         for i in range(self.grid_width):
             for j in range(self.grid_height):
-                if(self.grid.core_grid[i][j].GetState() == "*"):
-                    self.grid.core_grid[i][j].ClearKnightTourNeighboursList()
+                for block in self.grid.core_grid[i][j].GKTN():
+                    if(block.GetState() != "*" and block.GetState() != "K"):
+                        self.grid.core_grid[i][j].GKTN().remove(block)
 
     def KnightTour(self): #The Knight Tour method.
-        self.FindAllKinghtTourNeighbours()
         LKTN  = [] #Temporary list that represents the lengths of each Knight Tour Neighbours
         for i in range(len(self.grid.core_grid[self.knight_x][self.knight_y].KnightTourNeighbours)):
             LKTN.append(len(self.grid.core_grid[self.knight_x][self.knight_y].KnightTourNeighbours[i].KnightTourNeighbours))
@@ -55,7 +56,7 @@ class Warnsdorff:
             ky = self.grid.core_grid[self.knight_x][self.knight_y].KnightTourNeighbours[min_index].block_y #The new knight y position
             self.knight_x = kx
             self.knight_y = ky
-            self.ClearAllKinghtTourNeighbours()
+            self.UpdateKinghtTourNeighbourList()
 
             dump_first = "*"
             check1 = True #Boolean variable that shows if all the chessblocks have been visited 
@@ -78,7 +79,7 @@ class Warnsdorff:
 
     def SetKnight(self, kx, ky): #Sets the knight's position
         self.knight_x = kx
-        self .knight_y = ky
+        self.knight_y = ky
 
     def MinimumIndex(self, the_length_list): #Finds the minimum index of an array. Has a method for when all elements of the array have the same value
         if(len(the_length_list) > 0):
@@ -92,7 +93,7 @@ class Warnsdorff:
 
             if(check1 == False):
                 del dump_first, check1
-                return the_length_list.index(min(the_length_list))
+                return the_length_list.index(min(the_length_list))           
             else:
                 dump_list = []
                 for i in range(len(self.grid.core_grid[self.knight_x][self.knight_y].KnightTourNeighbours)):
