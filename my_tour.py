@@ -16,8 +16,23 @@ class Warnsdorff:
         self.FindAllKinghtTourNeighbours() #Finds all the neighbours for each chessblock on the board
 
     def AskForKnightPosition(self):
-        self.knight_x = int(input("Input the X position: "))
-        self.knight_y = int(input("Input the Y position: "))
+        test_y = int(input("Input the X position: "))
+        test_x = int(input("Input the Y position: "))
+        
+        if(test_y - 1 < 0):
+            test_y = 0
+        else:
+            test_y = test_y - 1
+
+        
+        if(test_x - 1 < 0):
+            test_x = 0
+        else:
+            test_x = test_x - 1
+
+        self.knight_x = test_x
+        self.knight_y = test_y
+
         if(self.knight_x < 0 or self.knight_y < 0):
             print("One of your positions is negative")
             self.AskForKnightPosition()
@@ -35,8 +50,7 @@ class Warnsdorff:
                         dump_point2 = np.array([temp_i, temp_j])
                         if(np.linalg.norm(dump_point1 - dump_point2) == math.sqrt(5) and self.grid.core_grid[i][j].GetState() == "*" and self.grid.core_grid[temp_i][temp_j].GetState() == "*"):
                             self.grid.core_grid[i][j].AddChessBlockToKnightTourNeighboursList(self.grid.core_grid[temp_i][temp_j])
-                        del dump_point1, dump_point2
-
+    
     def UpdateKinghtTourNeighbourList(self): #Clears the KnightTourNeighbours list
         for i in range(self.grid_width):
             for j in range(self.grid_height):
