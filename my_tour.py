@@ -15,32 +15,6 @@ class Warnsdorff:
         self.count = 0 #This number will show which step the knight is
         self.FindAllKinghtTourNeighbours() #Finds all the neighbours for each chessblock on the board
 
-    def AskForKnightPosition(self):
-        test_y = int(input("Input the X position: "))
-        test_x = int(input("Input the Y position: "))
-        
-        if(test_y - 1 < 0):
-            test_y = 0
-        else:
-            test_y = test_y - 1
-
-        
-        if(test_x - 1 < 0):
-            test_x = 0
-        else:
-            test_x = test_x - 1
-
-        self.knight_x = test_x
-        self.knight_y = test_y
-
-        if(self.knight_x < 0 or self.knight_y < 0):
-            print("One of your positions is negative")
-            self.AskForKnightPosition()
-
-        if(self.knight_x > self.grid_width or self.knight_y > self.grid_height):
-            print("One of your positions is too large")
-            self.AskForKnightPosition()
-
     def FindAllKinghtTourNeighbours(self): #This method will calculate all the Knight Tour neighbours
         for i in range(self.grid_width):
             for j in range(self.grid_height):
