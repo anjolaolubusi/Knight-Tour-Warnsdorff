@@ -1,5 +1,6 @@
 import numpy as np
 from my_tour import Warnsdorff
+from my_grid import Grid
 
 real_x = -1
 real_y = -1
@@ -15,3 +16,4 @@ GetXY()
 my_grid = Warnsdorff(real_x, real_y)
 my_grid.AskForKnightPosition()
 my_grid.KnightTour()
+

@@ -1,5 +1,6 @@
 from my_chessblock import ChessBlock
 import numpy as np
+import turtle
 
 class Grid:
     def __init__(self, my_x : float, my_y: float):
