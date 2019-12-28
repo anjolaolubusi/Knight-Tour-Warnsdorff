@@ -14,6 +14,7 @@ class Warnsdorff:
         self.knight_y = 0 #The y positon of the Knight
         self.count = 0 #This number will show which step the knight is
         self.FindAllKinghtTourNeighbours() #Finds all the neighbours for each chessblock on the board
+        self.HCT = False
 
     def FindAllKinghtTourNeighbours(self): #This method will calculate all the Knight Tour neighbours
         for i in range(self.grid_width):
@@ -59,10 +60,16 @@ class Warnsdorff:
                 del LKTN, min_index, kx, ky, dump_first, check1
                 self.KnightTour()
             else:
+                if (self.count == self.grid_width * self.grid_height):
+                    self.HCT = True
+                print("HCT: ", self.HCT)
                 self.grid.PrintGrid()
         else:
             self.count = self.count + 1
             self.grid.core_grid[self.knight_x][self.knight_y].SetState(str(self.count))
+            if (self.count == self.grid_width * self.grid_height):
+                self.HCT = True
+            print("HCT: ", self.HCT)
             self.grid.PrintGrid()
 
     def SetKnight(self, kx, ky): #Sets the knight's position
