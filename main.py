@@ -63,6 +63,7 @@ def DrawChessBoard():
     global OriginPoint
     global BLOCK_WIDTH
     global BLOCK_HEIGHT
+    global screen, RED
     OriginPoint = np.array((BLOCK_WIDTH, BLOCK_HEIGHT))
     for i in range(real_y):
         for j in range(real_x):
@@ -82,8 +83,28 @@ def DrawChessBoard():
         pygame.draw.line(screen, BLACK, ChessCursor, (OriginPoint[0] + (real_x)*BLOCK_WIDTH, ChessCursor[1]))
         ChessCursor[1] += BLOCK_HEIGHT
 
+def DrawKnightTour():
+    global my_grid
+    global real_x
+    global real_y
+    global OriginPoint
+    max_count = real_x * real_y
+    count = 1
+    dump = np.zeros((real_x, real_y))
+    for i in range(real_x):
+        for j in range(real_y):
+            dump[i][j] = int(my_grid.grid.core_grid[i][j].GetState())
+    while(count < max_count):
+        pos1 = np.where(dump == count)
+        POS1 = (int(BLOCK_WIDTH + (BLOCK_WIDTH/2) + (BLOCK_WIDTH)*pos1[0]), int(BLOCK_HEIGHT + (BLOCK_HEIGHT/2) + (BLOCK_HEIGHT)*pos1[1]))
+        count += 1
+        pos2 = np.where(dump == count)
+        POS2 = (int(BLOCK_WIDTH + (BLOCK_WIDTH/2) + (BLOCK_WIDTH)*pos2[0]), int(BLOCK_HEIGHT + (BLOCK_HEIGHT/2) + (BLOCK_HEIGHT)*pos2[1]))
+        pygame.draw.lines(screen, RED, True, [POS1, POS2], 1)
+
 my_grid.KnightTour() #Starts the KnightTour
 DrawChessBoard() 
+DrawKnightTour()
 
 #Loop so that we can see the knight tour
 while True:
