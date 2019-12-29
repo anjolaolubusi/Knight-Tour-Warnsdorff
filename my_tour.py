@@ -5,7 +5,7 @@ import math
 
 class Warnsdorff:
 
-    def __init__(self, x, y):
+    def __init__(self, x, y, BLOCK_WIDTH, BLOCK_HEIGHT):
         self.grid = Grid(x, y) #The chessboard object
         self.grid_width = x #Width of the chessboard
         self.grid_height = y #Height of the chessboard
@@ -14,7 +14,9 @@ class Warnsdorff:
         self.knight_y = 0 #The y positon of the Knight
         self.count = 0 #This number will show which step the knight is
         self.FindAllKinghtTourNeighbours() #Finds all the neighbours for each chessblock on the board
-        self.HCT = False
+        self.ListOfSteps = []
+        self.BLOCK_WIDTH = BLOCK_WIDTH
+        self.BLOCK_HEIGHT = BLOCK_HEIGHT
 
     def FindAllKinghtTourNeighbours(self): #This method will calculate all the Knight Tour neighbours
         for i in range(self.grid_width):
@@ -43,6 +45,10 @@ class Warnsdorff:
             self.grid.core_grid[self.knight_x][self.knight_y].SetState(str(self.count)) #Changes the state of the chessblock to show step number
             kx = self.grid.core_grid[self.knight_x][self.knight_y].KnightTourNeighbours[min_index].block_x #The new knight x position
             ky = self.grid.core_grid[self.knight_x][self.knight_y].KnightTourNeighbours[min_index].block_y #The new knight y position
+            POS1 = (int(self.BLOCK_WIDTH + (self.BLOCK_WIDTH/2) + (self.BLOCK_WIDTH)*self.knight_x), int(self.BLOCK_HEIGHT + (self.BLOCK_HEIGHT/2) + (self.BLOCK_HEIGHT)*self.knight_y))
+            POS2 = (int(self.BLOCK_WIDTH + (self.BLOCK_WIDTH/2) + (self.BLOCK_WIDTH)*kx), int(self.BLOCK_HEIGHT + (self.BLOCK_HEIGHT/2) + (self.BLOCK_HEIGHT)*ky))
+            self.ListOfSteps.append(POS1)
+            self.ListOfSteps.append(POS2)
             self.knight_x = kx
             self.knight_y = ky
             self.UpdateKinghtTourNeighbourList()
@@ -64,14 +70,12 @@ class Warnsdorff:
                     self.HCT = True
                 print("HCT: ", self.HCT)
                 self.grid.PrintGrid()
+                self.ListOfSteps = list(dict.fromkeys(self.ListOfSteps))
         else:
             self.count = self.count + 1
             self.grid.core_grid[self.knight_x][self.knight_y].SetState(str(self.count))
-            if (self.count == self.grid_width * self.grid_height):
-                self.HCT = True
-            print("HCT: ", self.HCT)
-            self.grid.PrintGrid()
-
+            self.ListOfSteps = list(dict.fromkeys(self.ListOfSteps))
+    
     def SetKnight(self, kx, ky): #Sets the knight's position
         self.knight_x = kx
         self.knight_y = ky

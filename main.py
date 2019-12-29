@@ -34,7 +34,7 @@ if(test_x - 1 < 0):
 else:
     test_x = test_x - 1
  
-my_grid = Warnsdorff(real_x, real_y) #Object that contains the knight tour and the grid
+my_grid = Warnsdorff(real_x, real_y, BLOCK_WIDTH, BLOCK_HEIGHT) #Object that contains the knight tour and the grid
 my_grid.knight_x = test_x #Sets the inital x position
 my_grid.knight_y = test_y #Sets the inital y position
 
@@ -83,38 +83,21 @@ def DrawChessBoard():
         pygame.draw.line(screen, BLACK, ChessCursor, (OriginPoint[0] + (real_x)*BLOCK_WIDTH, ChessCursor[1]))
         ChessCursor[1] += BLOCK_HEIGHT
 
-def DrawKnightTour():
-    global my_grid
-    global real_x
-    global real_y
-    global OriginPoint
-    max_count = real_x * real_y
-    count = 1
-    if(my_grid.HCT == True):
-        dump = np.zeros((real_x, real_y))
-        for i in range(real_x):
-            for j in range(real_y):
-                dump[i][j] = int(my_grid.grid.core_grid[i][j].GetState())
-    else:
-        print("NO KNIGHT TOUR")
-        return
-    while(count < max_count):
-        pos1 = np.where(dump == count)
-        POS1 = (int(BLOCK_WIDTH + (BLOCK_WIDTH/2) + (BLOCK_WIDTH)*pos1[0]), int(BLOCK_HEIGHT + (BLOCK_HEIGHT/2) + (BLOCK_HEIGHT)*pos1[1]))
-        count += 1
-        pos2 = np.where(dump == count)
-        POS2 = (int(BLOCK_WIDTH + (BLOCK_WIDTH/2) + (BLOCK_WIDTH)*pos2[0]), int(BLOCK_HEIGHT + (BLOCK_HEIGHT/2) + (BLOCK_HEIGHT)*pos2[1]))
-        pygame.draw.lines(screen, RED, True, [POS1, POS2], 2)
-
 my_grid.KnightTour() #Starts the KnightTour
 DrawChessBoard() 
-DrawKnightTour()
 
+step = 0
 #Loop so that we can see the knight tour
 while True:
         for event in pygame.event.get():
             if event.type==QUIT:
                 pygame.quit()
                 sys.exit()
+        
+        if step < len(my_grid.ListOfSteps) - 1:
+            pygame.draw.line(screen, RED, my_grid.ListOfSteps[step], my_grid.ListOfSteps[step + 1], 2)
+            step += 1
+        #pygame.draw.lines(screen, RED, True, my_grid.ListOfSteps, 2)
+        fpsClock.tick(10)
         pygame.display.update()
 
