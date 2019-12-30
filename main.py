@@ -37,17 +37,20 @@ def GetWidth():
     screen.blit(test,(200,0))
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
-            if (ord(event.unicode) < 58 and ord(event.unicode) > 47):
-                string += pygame.key.name(event.key)
-                pygame.display.update()
-            elif pygame.key.name(event.key) == "backspace":
-                string = string[:len(string) - 1]
-                pygame.display.update()
-            elif pygame.key.name(event.key) == "return":
-                chess_width = int(string)
-                string = ""
-                screen.fill((255,255,255))
-                running = False
+            if(len(event.unicode) > 0):
+                if (ord(event.unicode) < 58 and ord(event.unicode) > 47):
+                    string += pygame.key.name(event.key)
+                    pygame.display.update()
+                elif pygame.key.name(event.key) == "backspace":
+                    string = string[:len(string) - 1]
+                    pygame.display.update()
+                elif pygame.key.name(event.key) == "return":
+                    chess_width = int(string)
+                    string = ""
+                    screen.fill((255,255,255))
+                    running = False
+            else:
+                pass
 
 def GetHeight(): 
     global textsurface,string,WHITE,running,chess_height 
@@ -59,17 +62,20 @@ def GetHeight():
     screen.blit(test,(200,0))
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
-            if (ord(event.unicode) < 58 and ord(event.unicode) > 47):
-                string += pygame.key.name(event.key)
-                pygame.display.update()
-            elif pygame.key.name(event.key) == "backspace":
-                string = string[:len(string) - 1]
-                pygame.display.update()
-            elif pygame.key.name(event.key) == "return":
-                chess_height = int(string)
-                string = ""
-                screen.fill(WHITE)
-                running = False
+            if(len(event.unicode) > 0):
+                if (ord(event.unicode) < 58 and ord(event.unicode) > 47):
+                    string += pygame.key.name(event.key)
+                    pygame.display.update()
+                elif pygame.key.name(event.key) == "backspace":
+                    string = string[:len(string) - 1]
+                    pygame.display.update()
+                elif pygame.key.name(event.key) == "return":
+                    chess_height = int(string)
+                    string = ""
+                    screen.fill(WHITE)
+                    running = False
+            else:
+                pass
 
 def GetX():
     global textsurface,string,running,WHITE,start_x
@@ -81,16 +87,17 @@ def GetX():
     screen.blit(test,(200,0))
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
-            if (ord(event.unicode) < 58 and ord(event.unicode) > 47):
-                string += pygame.key.name(event.key)
-                pygame.display.update()
-            elif pygame.key.name(event.key) == "backspace":
-                string = string[:len(string) - 1]
-                pygame.display.update()
-            elif pygame.key.name(event.key) == "return":
-                start_x = int(string)
-                string = ""
-                running = False
+            if(len(event.unicode) > 0):
+                if (ord(event.unicode) < 58 and ord(event.unicode) > 47):
+                    string += pygame.key.name(event.key)
+                    pygame.display.update()
+                elif pygame.key.name(event.key) == "backspace":
+                    string = string[:len(string) - 1]
+                    pygame.display.update()
+                elif pygame.key.name(event.key) == "return":
+                    start_x = int(string)
+                    string = ""
+                    running = False
 
 def GetY():
     global textsurface,string,WHITE,running,start_y
@@ -102,16 +109,17 @@ def GetY():
     screen.blit(test,(200,0))
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
-            if (ord(event.unicode) < 58 and ord(event.unicode) > 47):
-                string += pygame.key.name(event.key)
-                pygame.display.update()
-            elif pygame.key.name(event.key) == "backspace":
-                string = string[:len(string) - 1]
-                pygame.display.update()
-            elif pygame.key.name(event.key) == "return":
-                start_y = int(string)
-                string = ""
-                running = False
+            if(len(event.unicode) > 0):
+                if (ord(event.unicode) < 58 and ord(event.unicode) > 47):
+                    string += pygame.key.name(event.key)
+                    pygame.display.update()
+                elif pygame.key.name(event.key) == "backspace":
+                    string = string[:len(string) - 1]
+                    pygame.display.update()
+                elif pygame.key.name(event.key) == "return":
+                    start_y = int(string)
+                    string = ""
+                    running = False
 
 running = True
 while running: 
