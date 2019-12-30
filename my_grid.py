@@ -15,7 +15,7 @@ class Grid:
                 column.append(StandardBlock) #Adds the block to the column
             dump_list.append(column) #Adds the column to grid
         self.core_grid = np.array(dump_list, copy=True) #Creates proper chessgrid
-        del column, dump_list
+        #del column, dump_list
 
     def PrintGrid(self): #Prints the chessboard
         print("Grid: ")

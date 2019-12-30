@@ -5,13 +5,13 @@ import math
 
 class Warnsdorff:
 
-    def __init__(self, x, y, BLOCK_WIDTH, BLOCK_HEIGHT):
-        self.grid = Grid(x, y) #The chessboard object
-        self.grid_width = x #Width of the chessboard
-        self.grid_height = y #Height of the chessboard
+    def __init__(self, width, height, x, y, BLOCK_WIDTH, BLOCK_HEIGHT):
+        self.grid = Grid(width, height) #The chessboard object
+        self.grid_width = width #Width of the chessboard
+        self.grid_height = height #Height of the chessboard
         self.grid_center_pos = np.array([self.grid_width/2, self.grid_height/2]) #Numpy array of the center of the chessboard
-        self.knight_x = 0 #The x positon of the Knight
-        self.knight_y = 0 #The y positon of the Knight
+        self.knight_x = x #The x positon of the Knight
+        self.knight_y = y #The y positon of the Knight
         self.count = 0 #This number will show which step the knight is
         self.FindAllKinghtTourNeighbours() #Finds all the neighbours for each chessblock on the board
         self.ListOfSteps = []
@@ -27,7 +27,7 @@ class Warnsdorff:
                         dump_point2 = np.array([temp_i, temp_j])
                         if(np.linalg.norm(dump_point1 - dump_point2) == math.sqrt(5) and self.grid.core_grid[i][j].GetState() == "*" and self.grid.core_grid[temp_i][temp_j].GetState() == "*"):
                             self.grid.core_grid[i][j].AddChessBlockToKnightTourNeighboursList(self.grid.core_grid[temp_i][temp_j])
-    
+
     def UpdateKinghtTourNeighbourList(self): #Clears the KnightTourNeighbours list
         for i in range(self.grid_width):
             for j in range(self.grid_height):
