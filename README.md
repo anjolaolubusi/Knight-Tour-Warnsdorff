@@ -4,11 +4,7 @@ PyTour is an implementation and visualization of the Warnsdorff algorithm of the
 ## Implementation
 To explain briefly, a knight's tour is a sequences of moves that a knight can make to visit each square once. The Warnsdorff algorithm works by making the knight move to the square with the least onwards moves.
 
-## Getting Started
-
-These instructions will get you a copy of the project up and running.
-
-### Building and Running
+## Building and Running
 
 ```
 pip install -r requirements.txt
