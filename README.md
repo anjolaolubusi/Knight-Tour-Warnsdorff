@@ -1,19 +1,14 @@
 # PyTour
-PyTour is a little program that calculates the knight tour for a specified chessboard. As of now, this program just uses the Warnsdorff's rule to calculate the knight's tour. Currently, the program will print out a table of numbers detailing the knight's movement.
+PyTour is an implementation and visualization of the Warnsdorff algorithm of the Knight Tour Problem.
+
+## Implementation
+To explain briefly, a knight's tour is a sequences of moves that a knight can make to visit each square once. The Warnsdorff algorithm works by making the knight move to the square with the least onwards moves.
 
 ## Getting Started
 
 These instructions will get you a copy of the project up and running.
 
-### Installing and Running
-
-First we need to clone the repository. First type:
-```
-git clone https://github.com/anjolaolubusi/PyTour.git
-```
-
-Alternatively you could download the project as a zip and extract that.
-Enter the project folder and type
+### Building and Running
 
 ```
 pip install -r requirements.txt
@@ -23,7 +18,6 @@ or
 ```
 pip3 install -r requirements.txt
 ```
-depending on your python version.
 Once finished, you can run the project by typing:
 ```
 python main.py
@@ -33,7 +27,7 @@ python main.py
 * [Numpy](https://github.com/numpy/numpy)
 
 ## Authors
-* **Anjolaoluwa Olubusi** - *Initial work* - [anjolaolubusi](https://github.com/anjolaolubusi/PyTour)
+* **Anjolaoluwa Olubusi** - *Programming* - [anjolaolubusi](https://github.com/anjolaolubusi/PyTour)
 
 ## Acknowledgments
 * Warnsdorff for his Warnsdorff's algorithm.
