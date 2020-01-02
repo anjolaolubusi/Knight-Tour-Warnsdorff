@@ -20,15 +20,15 @@ screen.fill((255,255,255)) #Fills the screen to be white
 pygame.font.init()
 myfont = pygame.font.SysFont('Times New Roman', 30)
 
-start_x = 0
-start_y = 0
-chess_width = 0
-chess_height = 0
+start_x = 0 #Starting x-coordinate
+start_y = 0 #Starting y-coordinate
+chess_width = 0 #Width of the chessboard
+chess_height = 0 #Height of the chessboard
 
-string = ""
-textsurface = myfont.render('Enter Width: ', False, (0, 0, 0))
+string = "" #Empty string used to hold the input
+textsurface = myfont.render('Enter Width: ', False, (0, 0, 0)) #Text to show on screen
 
-def GetWidth():
+def GetWidth(): #Gets the width of the chessboard
     global textsurface,string,running,chess_width
     pygame.display.flip()
     screen.fill(WHITE)
@@ -52,7 +52,7 @@ def GetWidth():
             else:
                 pass
 
-def GetHeight(): 
+def GetHeight(): #Gets the height of the chessboard
     global textsurface,string,WHITE,running,chess_height 
     pygame.display.flip()
     screen.fill((255,255,255))
@@ -77,7 +77,7 @@ def GetHeight():
             else:
                 pass
 
-def GetX():
+def GetX(): #Gets the x-coordinate of the chessboard
     global textsurface,string,running,WHITE,start_x
     pygame.display.flip()
     screen.fill((255,255,255))
@@ -99,7 +99,7 @@ def GetX():
                     string = ""
                     running = False
 
-def GetY():
+def GetY(): #Gets the y-coordinate of the chessboard
     global textsurface,string,WHITE,running,start_y
     pygame.display.flip()
     screen.fill((255,255,255))
@@ -121,6 +121,7 @@ def GetY():
                     string = ""
                     running = False
 
+#Terrible loops to get all the input data we need
 running = True
 while running: 
     GetWidth()
@@ -151,6 +152,7 @@ if(start_x - 1 < 0):
     start_x = 0
 else:
     start_x = start_x - 1
+
 
 my_grid = Warnsdorff(chess_width, chess_height, start_x, start_y, BLOCK_WIDTH, BLOCK_HEIGHT) #Object that contains the knight tour and the grid
 
@@ -203,7 +205,7 @@ my_grid.KnightTour() #Starts the KnightTour
 DrawChessBoard() 
 
 step = 0
-#Loop so that we can see the knight tour
+#Loop so that we can see and animate the knight tour
 while True:
         for event in pygame.event.get():
             if event.type==QUIT:
