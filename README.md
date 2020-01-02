@@ -21,6 +21,7 @@ python main.py
 ## Built with
 * [Python](https://www.python.org/)
 * [Numpy](https://github.com/numpy/numpy)
+* [Pygame](https://pypi.org/project/pygame/)
 
 ## Authors
 * **Anjolaoluwa Olubusi** - *Programming* - [anjolaolubusi](https://github.com/anjolaolubusi/PyTour)
