@@ -1,4 +1,4 @@
-import pygame,sys
+import pygame,sys,math
 from pygame.locals import *
 import pygame_gui
 from my_tour import Warnsdorff
@@ -10,6 +10,7 @@ fpsClock = pygame.time.Clock() #Sets the frames per second
 WHITE=(255,255,255) #RGB Value for White
 BLACK = (0,0,0) #RGB Value for Black
 RED = (255, 0, 0) # RGB Value for Red
+
 BLOCK_WIDTH = 30 #Default value for the width of the block
 BLOCK_HEIGHT = 30 #Default value for the height of the block
 
@@ -32,9 +33,9 @@ def GetWidth(): #Gets the width of the chessboard
     global textsurface,string,running,chess_width
     pygame.display.flip()
     screen.fill(WHITE)
-    screen.blit(textsurface,(0,0))
     test = myfont.render(string, False, (0, 0, 0))
-    screen.blit(test,(200,0))
+    screen.blit(test,(400 + (textsurface.get_width() // 2),300 - (textsurface.get_height() // 2)) ) 
+    screen.blit(textsurface,(400  - (textsurface.get_width() // 2), 300 - (textsurface.get_height() // 2)) )
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             if(len(event.unicode) > 0):
@@ -51,15 +52,18 @@ def GetWidth(): #Gets the width of the chessboard
                     running = False
             else:
                 pass
+        if event.type==QUIT:
+                pygame.quit()
+                sys.exit()
 
 def GetHeight(): #Gets the height of the chessboard
-    global textsurface,string,WHITE,running,chess_height 
+    global string,WHITE,running,chess_height 
     pygame.display.flip()
     screen.fill((255,255,255))
     textsurface = myfont.render('Enter Height: ', False, (0, 0, 0))
-    screen.blit(textsurface,(0,0))
     test = myfont.render(string, False, (0, 0, 0))
-    screen.blit(test,(200,0))
+    screen.blit(test,(400 + (textsurface.get_width() // 2),300 - (textsurface.get_height() // 2)) ) 
+    screen.blit(textsurface,(400  - (textsurface.get_width() // 2), 300 - (textsurface.get_height() // 2)) )
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             if(len(event.unicode) > 0):
@@ -76,50 +80,9 @@ def GetHeight(): #Gets the height of the chessboard
                     running = False
             else:
                 pass
-
-def GetX(): #Gets the x-coordinate of the chessboard
-    global textsurface,string,running,WHITE,start_x
-    pygame.display.flip()
-    screen.fill((255,255,255))
-    textsurface = myfont.render('Enter X: ', False, (0, 0, 0))
-    screen.blit(textsurface,(0,0))
-    test = myfont.render(string, False, (0, 0, 0))
-    screen.blit(test,(200,0))
-    for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN:
-            if(len(event.unicode) > 0):
-                if (ord(event.unicode) < 58 and ord(event.unicode) > 47):
-                    string += pygame.key.name(event.key)
-                    pygame.display.update()
-                elif pygame.key.name(event.key) == "backspace":
-                    string = string[:len(string) - 1]
-                    pygame.display.update()
-                elif pygame.key.name(event.key) == "return":
-                    start_x = int(string)
-                    string = ""
-                    running = False
-
-def GetY(): #Gets the y-coordinate of the chessboard
-    global textsurface,string,WHITE,running,start_y
-    pygame.display.flip()
-    screen.fill((255,255,255))
-    textsurface = myfont.render('Enter Y: ', False, (0, 0, 0))
-    screen.blit(textsurface,(0,0))
-    test = myfont.render(string, False, (0, 0, 0))
-    screen.blit(test,(200,0))
-    for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN:
-            if(len(event.unicode) > 0):
-                if (ord(event.unicode) < 58 and ord(event.unicode) > 47):
-                    string += pygame.key.name(event.key)
-                    pygame.display.update()
-                elif pygame.key.name(event.key) == "backspace":
-                    string = string[:len(string) - 1]
-                    pygame.display.update()
-                elif pygame.key.name(event.key) == "return":
-                    start_y = int(string)
-                    string = ""
-                    running = False
+        if event.type==QUIT:
+                pygame.quit()
+                sys.exit()
 
 #Terrible loops to get all the input data we need
 running = True
@@ -128,40 +91,6 @@ while running:
 running = True
 while running:
     GetHeight()
-running = True
-while running:
-    GetX()
-running = True
-while running:
-    GetY()
-
-
-#Makes sure that the intial position of the knight can not go below (0,0)
-if(start_y - 1 < 0):
-    start_y = 0
-else:
-    start_y = start_y - 1
-
-if(start_y > chess_width):
-    GetY()
-
-if(start_x > chess_height):
-    GetX()
-
-if(start_x - 1 < 0):
-    start_x = 0
-else:
-    start_x = start_x - 1
-
-
-my_grid = Warnsdorff(chess_width, chess_height, start_x, start_y, BLOCK_WIDTH, BLOCK_HEIGHT) #Object that contains the knight tour and the grid
-
-OriginPoint = np.array((BLOCK_WIDTH, BLOCK_HEIGHT)) #The starting point of our grid
-ChessCursor = OriginPoint #The cursor used to draw the grid
-screen_width = int((chess_width + 2) * BLOCK_WIDTH) #The width of the new window
-screen_height = int((chess_height + 2) * BLOCK_HEIGHT) #The height of the new window
-screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE) #Resizes the window to our speficiations
-screen.fill((255, 255, 255))#Makes the background white
 
 #Draws Colored Square
 def drawRectangle(x : int, y: int):
@@ -201,8 +130,46 @@ def DrawChessBoard():
         pygame.draw.line(screen, BLACK, ChessCursor, (OriginPoint[0] + (chess_width)*BLOCK_WIDTH, ChessCursor[1]))
         ChessCursor[1] += BLOCK_HEIGHT
 
+
+my_grid = Warnsdorff(chess_width, chess_height, start_x, start_y, BLOCK_WIDTH, BLOCK_HEIGHT) #Object that contains the knight tour and the grid
 my_grid.KnightTour() #Starts the KnightTour
+
+OriginPoint = np.array((BLOCK_WIDTH, BLOCK_HEIGHT)) #The starting point of our grid
+ChessCursor = OriginPoint #The cursor used to draw the grid
+screen_width = int((chess_width + 2) * BLOCK_WIDTH) #The width of the new window
+screen_height = int((chess_height + 2) * BLOCK_HEIGHT) #The height of the new window
+screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE) #Resizes the window to our speficiations
+screen.fill((255, 255, 255))#Makes the background white
 DrawChessBoard() 
+
+def GetStartPos():
+    global running,start_x,start_y,textsurface,string,screen
+    myfont = pygame.font.SysFont('Times New Roman', int(14*math.log(math.sqrt((chess_width ** 2) + (chess_height ** 2)), 10) ))
+    pygame.display.flip()
+    textsurface = myfont.render('Click on the starting chessblock', False, (0,0,0))
+    screen.blit(textsurface, (screen_width // 2 - textsurface.get_width() // 2, BLOCK_HEIGHT // 2 - 10))
+    for event in pygame.event.get():
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            pos = pygame.mouse.get_pos()
+            if(BLOCK_WIDTH <= pos[0] <= (chess_width + 1)*BLOCK_WIDTH and BLOCK_HEIGHT <= pos[1] <= (chess_height + 1)*BLOCK_HEIGHT):
+                start_x = int(pos[0]/BLOCK_WIDTH) - 1
+                start_y = int(pos[1]/BLOCK_HEIGHT) - 1
+                pygame.draw.rect(screen , WHITE, ((0,0), (screen_width // 2 + textsurface.get_width() // 2, BLOCK_HEIGHT // 2 + 10)))
+                pygame.display.flip()
+                running = False
+        if event.type==QUIT:
+                pygame.quit()
+                sys.exit()
+
+running = True
+while running:
+    fpsClock.tick(60)
+    pygame.display.update()
+    GetStartPos()
+
+my_grid = Warnsdorff(chess_width, chess_height, start_x, start_y, BLOCK_WIDTH, BLOCK_HEIGHT) #Object that contains the knight tour and the grid
+my_grid.KnightTour() #Starts the KnightTour
+
 
 step = 0
 #Loop so that we can see and animate the knight tour
@@ -215,7 +182,7 @@ while True:
         if step < len(my_grid.ListOfSteps) - 1:
             pygame.draw.line(screen, RED, my_grid.ListOfSteps[step], my_grid.ListOfSteps[step + 1], 2)
             step += 1
-        #pygame.draw.lines(screen, RED, True, my_grid.ListOfSteps, 2)
+
         fpsClock.tick(10)
         pygame.display.update()
 
