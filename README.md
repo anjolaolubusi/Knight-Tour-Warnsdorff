@@ -1,5 +1,5 @@
-# PyTour
-PyTour is an implementation and visualization of the Warnsdorff algorithm of the Knight Tour Problem.
+# Knight-Tour-Warnsdorff
+Knight-Tour-Warnsdorff is an implementation and visualization of the Warnsdorff algorithm of the Knight Tour Problem.
 
 ## Implementation
 To explain briefly, a knight's tour is a sequences of moves that a knight can make to visit each square once. The Warnsdorff algorithm works by making the knight move to the square with the least onwards moves.
@@ -21,6 +21,7 @@ python main.py
 ## Built with
 * [Python](https://www.python.org/)
 * [Numpy](https://github.com/numpy/numpy)
+* [Pygame](https://pypi.org/project/pygame/)
 
 ## Authors
 * **Anjolaoluwa Olubusi** - *Programming* - [anjolaolubusi](https://github.com/anjolaolubusi/PyTour)
