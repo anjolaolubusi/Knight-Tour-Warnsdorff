@@ -177,6 +177,7 @@ step = 0
 finished = False
 def AnimateKnightTour():
     global step, my_grid,finished,start_x, start_y,BLOCK_WIDTH,BLOCK_HEIGHT,chess_width,chess_height,screen
+    local_x = start_x
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
@@ -198,6 +199,14 @@ def AnimateKnightTour():
         step += 1
 
     if step == len(my_grid.ListOfSteps) - 1:
+        if(step + 1 == chess_width * chess_height):
+            myfont = pygame.font.SysFont('Times New Roman', int(14*math.log(math.sqrt((chess_width ** 2) + (chess_height ** 2)), 10) ))
+            textsurface = myfont.render('Knight-Tour Complete', False, (0,0,0))
+            screen.blit(textsurface, (screen_width // 2 - textsurface.get_width() // 2, (chess_height+1)*BLOCK_HEIGHT + 10))
+        else:
+            myfont = pygame.font.SysFont('Times New Roman', int(14*math.log(math.sqrt((chess_width ** 2) + (chess_height ** 2)), 10) ))
+            textsurface = myfont.render('Knight Tour Not Complete', False, (0,0,0))
+            screen.blit(textsurface, (screen_width // 2 - textsurface.get_width() // 2, (chess_height+1)*BLOCK_HEIGHT + 10))
         step = 0
         finished = True
         myfont = pygame.font.SysFont('Times New Roman', int(14*math.log(math.sqrt((chess_width ** 2) + (chess_height ** 2)), 10) ))
