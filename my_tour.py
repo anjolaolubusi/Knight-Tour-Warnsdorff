@@ -21,12 +21,24 @@ class Warnsdorff:
     def FindAllKinghtTourNeighbours(self): #This method will calculate all the Knight Tour neighbours
         for i in range(self.grid_width):
             for j in range(self.grid_height):
-                for temp_i in range(self.grid_width):
-                    for temp_j in range(self.grid_height):
-                        dump_point1 = np.array([i, j])
-                        dump_point2 = np.array([temp_i, temp_j])
-                        if(np.linalg.norm(dump_point1 - dump_point2) == math.sqrt(5) and self.grid.core_grid[i][j].GetState() == "*" and self.grid.core_grid[temp_i][temp_j].GetState() == "*"):
-                            self.grid.core_grid[i][j].AddChessBlockToKnightTourNeighboursList(self.grid.core_grid[temp_i][temp_j])
+                temp_x = i
+                temp_y = j
+                if(temp_x + 1 < self.grid_width and temp_y + 2 < self.grid_height):
+                    self.grid.core_grid[i][j].AddChessBlockToKnightTourNeighboursList(self.grid.core_grid[temp_x + 1][temp_y + 2])
+                if(temp_x + 1 < self.grid_width and temp_y - 2 > -1):
+                    self.grid.core_grid[i][j].AddChessBlockToKnightTourNeighboursList(self.grid.core_grid[temp_x + 1][temp_y - 2])
+                if(temp_x - 1 > -1 and temp_y + 2 < self.grid_height):
+                    self.grid.core_grid[i][j].AddChessBlockToKnightTourNeighboursList(self.grid.core_grid[temp_x - 1][temp_y + 2])
+                if(temp_x - 1 > -1 and temp_y - 2 > -1):
+                    self.grid.core_grid[i][j].AddChessBlockToKnightTourNeighboursList(self.grid.core_grid[temp_x - 1][temp_y - 2]) 
+                if(temp_x + 2 < self.grid_width and temp_y + 1 < self.grid_height):
+                    self.grid.core_grid[i][j].AddChessBlockToKnightTourNeighboursList(self.grid.core_grid[temp_x + 2][temp_y + 1])
+                if(temp_x + 2 < self.grid_width and temp_y - 1 > -1):
+                    self.grid.core_grid[i][j].AddChessBlockToKnightTourNeighboursList(self.grid.core_grid[temp_x + 2][temp_y - 1])
+                if(temp_x - 2 > -1 and temp_y + 1 < self.grid_height):
+                    self.grid.core_grid[i][j].AddChessBlockToKnightTourNeighboursList(self.grid.core_grid[temp_x - 2][temp_y + 1])
+                if(temp_x - 2 > -1 and temp_y - 1 > -1):
+                    self.grid.core_grid[i][j].AddChessBlockToKnightTourNeighboursList(self.grid.core_grid[temp_x - 2][temp_y - 1])
 
     def UpdateKinghtTourNeighbourList(self): #Clears the KnightTourNeighbours list
         for i in range(self.grid_width):
@@ -36,7 +48,7 @@ class Warnsdorff:
                         self.grid.core_grid[i][j].GKTN().remove(block)
 
     def KnightTour(self): #The Knight Tour method.
-        for i in range(self.grid_width * self.grid_height):
+        for loop_counter in range(self.grid_width * self.grid_height):
             LKTN  = [] #Temporary list that represents the lengths of each Knight Tour Neighbours
             for i in range(len(self.grid.core_grid[self.knight_x][self.knight_y].KnightTourNeighbours)):
                 LKTN.append(len(self.grid.core_grid[self.knight_x][self.knight_y].KnightTourNeighbours[i].KnightTourNeighbours))

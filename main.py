@@ -132,9 +132,6 @@ def DrawChessBoard():
     
     ChessCursor = np.array((BLOCK_WIDTH, BLOCK_HEIGHT))
 
-my_grid = Warnsdorff(chess_width, chess_height, start_x, start_y, BLOCK_WIDTH, BLOCK_HEIGHT) #Object that contains the knight tour and the grid
-my_grid.KnightTour() #Starts the KnightTour
-
 OriginPoint = np.array((BLOCK_WIDTH, BLOCK_HEIGHT)) #The starting point of our grid
 ChessCursor = OriginPoint #The cursor used to draw the grid
 screen_width = int((chess_width + 2) * BLOCK_WIDTH) #The width of the new window
