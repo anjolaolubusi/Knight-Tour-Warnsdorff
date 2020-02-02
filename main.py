@@ -144,7 +144,7 @@ pygame.display.set_caption("PyTour: Getting Starting Position") #Sets the title 
 screen.fill((255, 255, 255))#Makes the background white
 DrawChessBoard() 
 
-def GetStartPos(): 
+def GetStartPos(): #Gets the starting position of the Knight's Tour 
     global running,start_x,start_y,textsurface,string,screen
     myfont = pygame.font.SysFont('Times New Roman', int(14*math.log(math.sqrt((chess_width ** 2) + (chess_height ** 2)), 10) ))
     pygame.display.flip()
@@ -175,7 +175,7 @@ pygame.display.set_caption("PyTour: Animating KnightTour") #Sets the title of th
 
 step = 0
 finished = False
-def AnimateKnightTour():
+def AnimateKnightTour(): #Animates the Knight's Tour
     global step, my_grid,finished,start_x, start_y,BLOCK_WIDTH,BLOCK_HEIGHT,chess_width,chess_height,screen
     local_x = start_x
     for event in pygame.event.get():

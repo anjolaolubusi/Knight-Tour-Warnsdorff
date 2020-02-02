@@ -36,45 +36,47 @@ class Warnsdorff:
                         self.grid.core_grid[i][j].GKTN().remove(block)
 
     def KnightTour(self): #The Knight Tour method.
-        LKTN  = [] #Temporary list that represents the lengths of each Knight Tour Neighbours
-        for i in range(len(self.grid.core_grid[self.knight_x][self.knight_y].KnightTourNeighbours)):
-            LKTN.append(len(self.grid.core_grid[self.knight_x][self.knight_y].KnightTourNeighbours[i].KnightTourNeighbours))
-        min_index = self.MinimumIndex(LKTN) #Temporary minimum index variable
-        if(min_index != -1):
-            self.count = self.count + 1
-            self.grid.core_grid[self.knight_x][self.knight_y].SetState(str(self.count)) #Changes the state of the chessblock to show step number
-            kx = self.grid.core_grid[self.knight_x][self.knight_y].KnightTourNeighbours[min_index].block_x #The new knight x position
-            ky = self.grid.core_grid[self.knight_x][self.knight_y].KnightTourNeighbours[min_index].block_y #The new knight y position
-            POS1 = (int(self.BLOCK_WIDTH + (self.BLOCK_WIDTH/2) + (self.BLOCK_WIDTH)*self.knight_x), int(self.BLOCK_HEIGHT + (self.BLOCK_HEIGHT/2) + (self.BLOCK_HEIGHT)*self.knight_y))    #Current position as a tuple
-            POS2 = (int(self.BLOCK_WIDTH + (self.BLOCK_WIDTH/2) + (self.BLOCK_WIDTH)*kx), int(self.BLOCK_HEIGHT + (self.BLOCK_HEIGHT/2) + (self.BLOCK_HEIGHT)*ky))  #The next position as a tuple
-            self.ListOfSteps.append(POS1)   #Adds the current position to ListOfSteps
-            self.ListOfSteps.append(POS2)   #Adds the next positon to ListOfSteps
-            self.knight_x = kx  #Updates the x-coordinate of the knight
-            self.knight_y = ky  #Updates the y-coordinate of the knight
-            self.UpdateKinghtTourNeighbourList() #Updates the chessboard so that the current chessblock won't be counted
+        for i in range(self.grid_width * self.grid_height):
+            LKTN  = [] #Temporary list that represents the lengths of each Knight Tour Neighbours
+            for i in range(len(self.grid.core_grid[self.knight_x][self.knight_y].KnightTourNeighbours)):
+                LKTN.append(len(self.grid.core_grid[self.knight_x][self.knight_y].KnightTourNeighbours[i].KnightTourNeighbours))
+            min_index = self.MinimumIndex(LKTN) #Temporary minimum index variable
+            if(min_index != -1):
+                self.count = self.count + 1
+                self.grid.core_grid[self.knight_x][self.knight_y].SetState(str(self.count)) #Changes the state of the chessblock to show step number
+                kx = self.grid.core_grid[self.knight_x][self.knight_y].KnightTourNeighbours[min_index].block_x #The new knight x position
+                ky = self.grid.core_grid[self.knight_x][self.knight_y].KnightTourNeighbours[min_index].block_y #The new knight y position
+                POS1 = (int(self.BLOCK_WIDTH + (self.BLOCK_WIDTH/2) + (self.BLOCK_WIDTH)*self.knight_x), int(self.BLOCK_HEIGHT + (self.BLOCK_HEIGHT/2) + (self.BLOCK_HEIGHT)*self.knight_y))    #Current position as a tuple
+                POS2 = (int(self.BLOCK_WIDTH + (self.BLOCK_WIDTH/2) + (self.BLOCK_WIDTH)*kx), int(self.BLOCK_HEIGHT + (self.BLOCK_HEIGHT/2) + (self.BLOCK_HEIGHT)*ky))  #The next position as a tuple
+                self.ListOfSteps.append(POS1)   #Adds the current position to ListOfSteps
+                self.ListOfSteps.append(POS2)   #Adds the next positon to ListOfSteps
+                self.knight_x = kx  #Updates the x-coordinate of the knight
+                self.knight_y = ky  #Updates the y-coordinate of the knight
+                self.UpdateKinghtTourNeighbourList() #Updates the chessboard so that the current chessblock won't be counted
 
-            dump_first = "*"
-            check1 = True #Boolean variable that shows if all the chessblocks have been visited 
-            for fake_x in range(self.grid_width):
-                for fake_y in range(self.grid_height):
-                    if dump_first != self.grid.core_grid[fake_x][fake_y].GetState():
-                        check1 = False
-                        break;
+                dump_first = "*"
+                check1 = True #Boolean variable that shows if all the chessblocks have been visited 
+                for fake_x in range(self.grid_width):
+                    for fake_y in range(self.grid_height):
+                        if dump_first != self.grid.core_grid[fake_x][fake_y].GetState():
+                            check1 = False
+                            break;
 
             #Checks to see if all the chessblocks have been visited
-            if(check1 == False):
-                del LKTN, min_index, kx, ky, dump_first, check1
-                self.KnightTour()
+                if(check1 == False):
+                    del LKTN, min_index, kx, ky, dump_first, check1
+                else:
+                    if (self.count == self.grid_width * self.grid_height):
+                        self.HCT = True
+                    print("HCT: ", self.HCT)
+                    self.grid.PrintGrid()
+                    self.ListOfSteps = list(dict.fromkeys(self.ListOfSteps))
+                    break;
             else:
-                if (self.count == self.grid_width * self.grid_height):
-                    self.HCT = True
-                print("HCT: ", self.HCT)
-                self.grid.PrintGrid()
-                self.ListOfSteps = list(dict.fromkeys(self.ListOfSteps))
-        else:
-            self.count = self.count + 1
-            self.grid.core_grid[self.knight_x][self.knight_y].SetState(str(self.count))
-            self.ListOfSteps = list(dict.fromkeys(self.ListOfSteps))    #Cleans out the list so that there are no duplicates
+                self.count = self.count + 1
+                self.grid.core_grid[self.knight_x][self.knight_y].SetState(str(self.count))
+                self.ListOfSteps = list(dict.fromkeys(self.ListOfSteps))    #Cleans out the list so that there are no duplicates
+                break;
     
     def SetKnight(self, kx, ky): #Sets the knight's position
         self.knight_x = kx
